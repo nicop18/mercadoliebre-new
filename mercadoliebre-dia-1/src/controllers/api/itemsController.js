@@ -32,6 +32,44 @@ const {Product, Items} = require("../../database/models");
     
                 meta:{
                     status:201,
-                    message:"El producto se agrego al carro"
-                       
+                    message:"Product added to cart",
+                    url: "api/items" 
                 },
+                data: item
+            }
+           console.log(respuesta)
+           return res.json(respuesta)
+        })
+          
+          .catch((e) => console.log(e));
+      } else {
+         Product.findByPk(req.body.productId, {
+           include: ["user"],
+         })
+           .then(product => {
+              return res.render('products/detail', {product, errors: errors.mapped()})
+           }).catch((e) => console.log(e));
+      }
+    },
+  
+    deleteFromCart(req, res) {
+      Item.destroy({
+        where: {
+          id: req.body.itemId,
+        },
+        force: true,
+      })
+      .then(response => {
+        if (response > 0) {
+            res.json({
+                status: 201
+            })
+        } else {
+            console.log('error')
+        }
+    })
+    .catch(err => {
+        res.send(err.message)
+    });
+  }
+  }
