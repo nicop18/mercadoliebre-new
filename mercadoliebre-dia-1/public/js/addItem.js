@@ -6,7 +6,11 @@ window.addEventListener('load', function() {
 
     addItemForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        let quantityValue = quantityInput.value;
 
+            if (quantityValue <= 0) {
+                error.innerText = 'La cantidad debe ser mayor a 1';
+            } else {
         axios({
                 method: 'post',
                 url: 'http://localhost:3000/api/items',
@@ -26,7 +30,7 @@ window.addEventListener('load', function() {
             .catch(err => {
                 console.log(err);
             })
-    })
+    }})
 
  
 })

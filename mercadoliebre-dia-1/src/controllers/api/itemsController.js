@@ -1,19 +1,20 @@
 const { validationResult } = require("express-validator");
-const {Product, Items} = require("../../database/models");
+const {Product, Item} = require("../../database/models");
   
   module.exports = {
   
     addToCart(req, res) {
       const errors = validationResult(req);
-  
+        console.log("hola")
       if (errors.isEmpty()) {
+          console.log(req.body)
         Product.findByPk(req.body.productId, {
           include: ["user"],
         })
           .then((product) => {
+              console.log(product)
             let price =
-              Number(product.discount) > 0
-                ? product.price - (product.price * product.discount) / 100
+              Number(product.discount) > 0 ? product.price - (product.price * product.discount) / 100
                 : product.price;
 
             return Item.create({
@@ -60,6 +61,7 @@ const {Product, Items} = require("../../database/models");
           force: true,
         })
         .then(response => {
+            console.log(response)
           if (response > 0) {
               res.json({
                   status: 201
