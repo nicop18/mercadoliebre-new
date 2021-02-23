@@ -49,7 +49,7 @@ app.use('/', mainRouter);
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiProductRouter)
-app.use('/api', apiItems)
+app.use('/api/items', apiItems)
 // ************ DON'T TOUCH FROM HERE ************
 // ************ catch 404 and forward to error handler ************
 app.use((req, res, next) => next(createError(404)));

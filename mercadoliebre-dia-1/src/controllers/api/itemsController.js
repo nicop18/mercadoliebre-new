@@ -33,7 +33,7 @@ const {Product, Items} = require("../../database/models");
                 meta:{
                     status:201,
                     message:"Product added to cart",
-                    url: "api/items" 
+ 
                 },
                 data: item
             }
