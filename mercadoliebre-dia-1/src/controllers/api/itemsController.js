@@ -52,4 +52,24 @@ const {Product, Items} = require("../../database/models");
       }
     },
   
-}
+    deleteCart(req, res) {
+        Item.destroy({
+          where: {
+            id: req.body.itemId,
+          },
+          force: true,
+        })
+        .then(response => {
+          if (response > 0) {
+              res.json({
+                  status: 201
+              })
+          } else {
+              console.log('error')
+          }
+      })
+      .catch(err => {
+          res.send(err.message)
+      });
+    }
+    }
